@@ -1,0 +1,57 @@
+---
+- hosts: all
+  tasks:
+    - name: disabled firewalld
+      systemd: 
+        name: firewalld
+        state: stopped
+        enabled: no
+
+    - name: disabled selinux
+      command: 'setenforce 0'
+      ignore_errors: yes
+
+    - name: create backup directory for yum repo
+      file: 
+        path: /etc/yum.repos.d/backup
+        state: directory
+    - name: replace yum repository
+      shell: |
+        mv /etc/yum.repos.d/*.repo /etc/yum.repos.d/backup/
+        curl -s http://mirrors.aliyun.com/repo/Centos-7.repo -o /etc/yum.repos.d/Centos-7.repo
+        sed -i '/aliyuncs/d' /etc/yum.repos.d/Centos-7.repo
+        curl -s http://mirrors.aliyun.com/repo/epel-7.repo -o /etc/yum.repos.d/epel-7.repo
+        yum clean all
+        yum makecache
+
+    - name: install nfs and rpcbind
+      yum: 
+        name: "{{ packages }}"
+        state: installed
+      vars:
+        packages:
+        - rpcbind
+        - nfs-utils
+
+    - name: start and enable rpcbind service
+      systemd: 
+        name: rpcbind
+        state: started
+        enabled: yes
+    - name: start and enable nfs service
+      systemd: 
+        name: nfs
+        state: started
+        enabled: yes
+
+    - name: create shared directory
+      file: 
+        path: /public
+        state: directory
+
+    - name: mount server nfs directory
+      mount:
+        src: 192.168.5.67:/public
+        path: /public
+        fstype: nfs
+        state: mounted

@@ -1,0 +1,31 @@
+---
+# tasks file for /etc/ansible/roles/slurm-playbook
+  - name: check local munge key file is removed
+    file:
+      path: "{{ local_munge_key }}"
+      state: absent
+
+  - name: Start Munge service
+    service: name=munge state=started
+    register: munge_installed
+    ignore_errors: yes
+
+  - name: Yum install epel
+    yum: name=epel-release
+
+  - name: Yum install munge
+    yum: name=munge,munge-devel
+
+  - name: Register munge key
+    stat: path=/etc/munge/munge.key
+    register: munge_key
+
+  - name: set munge log directory access rights
+    file: path=/var/log/munge state=directory mode=0700
+
+  - name: set log directory access rights
+    file: path=/var/log state=directory mode=0755
+
+  - name: Include "{{munge_type_of_node}}" munge recipe
+    include: "{{munge_type_of_node}}.yml"
+

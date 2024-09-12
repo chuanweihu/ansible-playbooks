@@ -1,0 +1,8 @@
+---
+# defaults file for /etc/ansible/roles/slurm-playbook
+# cluster installation
+on_cluster: true
+
+# clean option to upgrade
+on_clean: false
+

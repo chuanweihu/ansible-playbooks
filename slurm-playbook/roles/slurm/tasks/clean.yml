@@ -1,0 +1,15 @@
+---
+  - name: Uninstall slurm RPMs 
+    yum:
+      name: "slurm"
+      state: absent
+    when: on_cluster or slurm_type_of_node=='front'
+    ignore_errors: yes
+
+  - name: Remove /etc/slurm config
+    file:
+      path: /etc/slurm
+      state: absent
+    when: on_cluster or slurm_type_of_node=='front'
+    ignore_errors: yes
+

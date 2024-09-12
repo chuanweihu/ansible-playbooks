@@ -1,0 +1,7 @@
+---
+# handlers file for /etc/ansible/roles/slurm-playbook/slurm
+- name: reload slurm
+  become: true
+  become_user: slurm
+  shell: scontrol reconfigure || service slurmctld restart
+

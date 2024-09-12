@@ -1,0 +1,842 @@
+2024-09-12 15:47:01,457 p=4957 u=root n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: No JSON object could be decoded
+
+Syntax Error while loading YAML.
+  but found another document
+
+The error appears to be in '/etc/ansible/roles/slurm-playbook/roles/munge/defaults/main.yml': line 3, column 1, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+# defaults file for /etc/ansible/roles/slurm-playbook
+---
+^ here
+
+2024-09-12 15:47:37,166 p=4994 u=root n=ansible | PLAY [all_servers] *************************************************************
+2024-09-12 15:47:37,175 p=4994 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 15:47:38,745 p=4994 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 15:47:38,796 p=4994 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 15:47:45,289 p=4994 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 15:47:45,314 p=4994 u=root n=ansible | TASK [vm_config : add to /etc/hosts file] **************************************
+2024-09-12 15:47:45,948 p=4994 u=root n=ansible | changed: [192.168.5.133] => (item=192.168.5.67 c1)
+2024-09-12 15:47:45,992 p=4994 u=root n=ansible | changed: [192.168.5.119] => (item=192.168.5.67 c1)
+2024-09-12 15:47:46,411 p=4994 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.133 c2)
+2024-09-12 15:47:46,466 p=4994 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.133 c2)
+2024-09-12 15:47:46,890 p=4994 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.119 c3)
+2024-09-12 15:47:46,944 p=4994 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.119 c3)
+2024-09-12 15:47:51,034 p=4994 u=root n=ansible | changed: [192.168.5.67] => (item=192.168.5.67 c1)
+2024-09-12 15:47:56,996 p=4994 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.133 c2)
+2024-09-12 15:48:02,817 p=4994 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.119 c3)
+2024-09-12 15:48:02,848 p=4994 u=root n=ansible | TASK [vm_config : Set hostname of slurm server] ********************************
+2024-09-12 15:48:02,905 p=4994 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 15:48:02,940 p=4994 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 15:48:02,945 p=4994 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 15:48:02,951 p=4994 u=root n=ansible | PLAY [slurmserver] *************************************************************
+2024-09-12 15:48:02,992 p=4994 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 15:48:09,780 p=4994 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 15:48:09,807 p=4994 u=root n=ansible | TASK [check local munge key file is removed] ***********************************
+2024-09-12 15:48:15,639 p=4994 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 15:48:15,667 p=4994 u=root n=ansible | TASK [munge : Start Munge service] *********************************************
+2024-09-12 15:48:21,983 p=4994 u=root n=ansible | fatal: [192.168.5.67]: FAILED! => {"changed": false, "msg": "Unable to start service munge: Job for munge.service failed because the control process exited with error code. See \"systemctl status munge.service\" and \"journalctl -xe\" for details.\n"}
+2024-09-12 15:48:21,983 p=4994 u=root n=ansible | ...ignoring
+2024-09-12 15:48:21,995 p=4994 u=root n=ansible | TASK [munge : Yum install epel] ************************************************
+2024-09-12 15:48:36,780 p=4994 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 15:48:36,808 p=4994 u=root n=ansible | TASK [Yum install munge] *******************************************************
+2024-09-12 15:48:42,739 p=4994 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 15:48:42,769 p=4994 u=root n=ansible | TASK [Register munge key] ******************************************************
+2024-09-12 15:48:48,827 p=4994 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 15:48:48,848 p=4994 u=root n=ansible | TASK [set munge log directory access rights] ***********************************
+2024-09-12 15:48:54,544 p=4994 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 15:48:54,556 p=4994 u=root n=ansible | TASK [munge : set log directory access rights] *********************************
+2024-09-12 15:49:00,161 p=4994 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 15:49:00,203 p=4994 u=root n=ansible | TASK [Include "front" munge recipe] ********************************************
+2024-09-12 15:49:00,255 p=4994 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/munge/tasks/front.yml for 192.168.5.67
+2024-09-12 15:49:00,285 p=4994 u=root n=ansible | TASK [Create munge key] ********************************************************
+2024-09-12 15:49:05,770 p=4994 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 15:49:05,794 p=4994 u=root n=ansible | TASK [Generate munge key with password] ****************************************
+2024-09-12 15:49:05,809 p=4994 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 15:49:05,822 p=4994 u=root n=ansible | TASK [Create munge.key file with password] *************************************
+2024-09-12 15:49:05,841 p=4994 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 15:49:05,853 p=4994 u=root n=ansible | TASK [copy munge.key from server to local cache] *******************************
+2024-09-12 15:49:11,888 p=4994 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 15:49:11,907 p=4994 u=root n=ansible | TASK [munge : Restart Munge service] *******************************************
+2024-09-12 15:49:18,062 p=4994 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 15:49:18,086 p=4994 u=root n=ansible | TASK [Start munge service] *****************************************************
+2024-09-12 15:49:24,112 p=4994 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 15:49:24,138 p=4994 u=root n=ansible | TASK [Uninstall slurm RPMs] ****************************************************
+2024-09-12 15:49:24,148 p=4994 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 15:49:24,177 p=4994 u=root n=ansible | TASK [Remove /etc/slurm config] ************************************************
+2024-09-12 15:49:24,188 p=4994 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 15:49:24,215 p=4994 u=root n=ansible | TASK [slurm : set_fact] ********************************************************
+2024-09-12 15:49:24,236 p=4994 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 15:49:24,248 p=4994 u=root n=ansible | TASK [slurm : stat] ************************************************************
+2024-09-12 15:49:29,920 p=4994 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 15:49:29,945 p=4994 u=root n=ansible | TASK [slurm : Install epel repo] ***********************************************
+2024-09-12 15:49:44,224 p=4994 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 15:49:44,254 p=4994 u=root n=ansible | TASK [slurm : Define a list of RPMs to download and install when using remotely] ***
+2024-09-12 15:49:44,276 p=4994 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 15:49:44,309 p=4994 u=root n=ansible | TASK [slurm : create directory for RPMs] ***************************************
+2024-09-12 15:49:50,014 p=4994 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 15:49:50,027 p=4994 u=root n=ansible | TASK [slurm : Download RPMs] ***************************************************
+2024-09-12 15:50:12,039 p=4994 u=root n=ansible | failed: [192.168.5.67] (item=slurm-21.08.8-2.el7.x86_64.rpm) => {"ansible_loop_var": "item", "changed": false, "dest": "/usr/local/src/slurm-rpms/slurm-21.08.8-2.el7.x86_64.rpm", "elapsed": 15, "item": "slurm-21.08.8-2.el7.x86_64.rpm", "msg": "Request failed: <urlopen error timed out>", "url": "http://gws-access.jasmin.ac.uk/public/cedaproc/rpms/slurm-21.08.8-2.el7.x86_64.rpm"}
+2024-09-12 15:50:34,880 p=4994 u=root n=ansible | failed: [192.168.5.67] (item=slurm-perlapi-21.08.8-2.el7.x86_64.rpm) => {"ansible_loop_var": "item", "changed": false, "dest": "/usr/local/src/slurm-rpms/slurm-perlapi-21.08.8-2.el7.x86_64.rpm", "elapsed": 17, "item": "slurm-perlapi-21.08.8-2.el7.x86_64.rpm", "msg": "Request failed: <urlopen error timed out>", "url": "http://gws-access.jasmin.ac.uk/public/cedaproc/rpms/slurm-perlapi-21.08.8-2.el7.x86_64.rpm"}
+2024-09-12 15:50:55,791 p=4994 u=root n=ansible | failed: [192.168.5.67] (item=slurm-contribs-21.08.8-2.el7.x86_64.rpm) => {"ansible_loop_var": "item", "changed": false, "dest": "/usr/local/src/slurm-rpms/slurm-contribs-21.08.8-2.el7.x86_64.rpm", "elapsed": 15, "item": "slurm-contribs-21.08.8-2.el7.x86_64.rpm", "msg": "Request failed: <urlopen error timed out>", "url": "http://gws-access.jasmin.ac.uk/public/cedaproc/rpms/slurm-contribs-21.08.8-2.el7.x86_64.rpm"}
+2024-09-12 15:51:16,701 p=4994 u=root n=ansible | failed: [192.168.5.67] (item=slurm-devel-21.08.8-2.el7.x86_64.rpm) => {"ansible_loop_var": "item", "changed": false, "dest": "/usr/local/src/slurm-rpms/slurm-devel-21.08.8-2.el7.x86_64.rpm", "elapsed": 15, "item": "slurm-devel-21.08.8-2.el7.x86_64.rpm", "msg": "Request failed: <urlopen error timed out>", "url": "http://gws-access.jasmin.ac.uk/public/cedaproc/rpms/slurm-devel-21.08.8-2.el7.x86_64.rpm"}
+2024-09-12 15:51:37,464 p=4994 u=root n=ansible | failed: [192.168.5.67] (item=slurm-example-configs-21.08.8-2.el7.x86_64.rpm) => {"ansible_loop_var": "item", "changed": false, "dest": "/usr/local/src/slurm-rpms/slurm-example-configs-21.08.8-2.el7.x86_64.rpm", "elapsed": 15, "item": "slurm-example-configs-21.08.8-2.el7.x86_64.rpm", "msg": "Request failed: <urlopen error timed out>", "url": "http://gws-access.jasmin.ac.uk/public/cedaproc/rpms/slurm-example-configs-21.08.8-2.el7.x86_64.rpm"}
+2024-09-12 15:51:58,752 p=4994 u=root n=ansible | failed: [192.168.5.67] (item=slurm-slurmctld-21.08.8-2.el7.x86_64.rpm) => {"ansible_loop_var": "item", "changed": false, "dest": "/usr/local/src/slurm-rpms/slurm-slurmctld-21.08.8-2.el7.x86_64.rpm", "elapsed": 15, "item": "slurm-slurmctld-21.08.8-2.el7.x86_64.rpm", "msg": "Request failed: <urlopen error timed out>", "url": "http://gws-access.jasmin.ac.uk/public/cedaproc/rpms/slurm-slurmctld-21.08.8-2.el7.x86_64.rpm"}
+2024-09-12 15:52:19,711 p=4994 u=root n=ansible | failed: [192.168.5.67] (item=slurm-slurmd-21.08.8-2.el7.x86_64.rpm) => {"ansible_loop_var": "item", "changed": false, "dest": "/usr/local/src/slurm-rpms/slurm-slurmd-21.08.8-2.el7.x86_64.rpm", "elapsed": 15, "item": "slurm-slurmd-21.08.8-2.el7.x86_64.rpm", "msg": "Request failed: <urlopen error timed out>", "url": "http://gws-access.jasmin.ac.uk/public/cedaproc/rpms/slurm-slurmd-21.08.8-2.el7.x86_64.rpm"}
+2024-09-12 15:52:40,760 p=4994 u=root n=ansible | failed: [192.168.5.67] (item=sct-nvidia-builder-nvml-460.73.01-1.el7.x86_64.rpm) => {"ansible_loop_var": "item", "changed": false, "dest": "/usr/local/src/slurm-rpms/sct-nvidia-builder-nvml-460.73.01-1.el7.x86_64.rpm", "elapsed": 15, "item": "sct-nvidia-builder-nvml-460.73.01-1.el7.x86_64.rpm", "msg": "Request failed: <urlopen error timed out>", "url": "http://gws-access.jasmin.ac.uk/public/cedaproc/rpms/sct-nvidia-builder-nvml-460.73.01-1.el7.x86_64.rpm"}
+2024-09-12 15:52:40,767 p=4994 u=root n=ansible | RUNNING HANDLER [restart munge] ************************************************
+2024-09-12 15:52:40,768 p=4994 u=root n=ansible | PLAY RECAP *********************************************************************
+2024-09-12 15:52:40,768 p=4994 u=root n=ansible | 192.168.5.119              : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2024-09-12 15:52:40,769 p=4994 u=root n=ansible | 192.168.5.133              : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2024-09-12 15:52:40,769 p=4994 u=root n=ansible | 192.168.5.67               : ok=20   changed=8    unreachable=0    failed=1    skipped=5    rescued=0    ignored=1   
+2024-09-12 16:26:19,918 p=9275 u=root n=ansible | PLAY [all_servers] *************************************************************
+2024-09-12 16:26:19,927 p=9275 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 16:26:21,564 p=9275 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:26:21,578 p=9275 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:26:28,593 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:26:28,604 p=9275 u=root n=ansible | TASK [vm_config : add to /etc/hosts file] **************************************
+2024-09-12 16:26:29,375 p=9275 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.67 c1)
+2024-09-12 16:26:29,382 p=9275 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.67 c1)
+2024-09-12 16:26:29,791 p=9275 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.133 c2)
+2024-09-12 16:26:29,922 p=9275 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.133 c2)
+2024-09-12 16:26:30,312 p=9275 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.119 c3)
+2024-09-12 16:26:30,432 p=9275 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.119 c3)
+2024-09-12 16:26:34,248 p=9275 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.67 c1)
+2024-09-12 16:26:40,226 p=9275 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.133 c2)
+2024-09-12 16:26:45,976 p=9275 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.119 c3)
+2024-09-12 16:26:45,990 p=9275 u=root n=ansible | TASK [vm_config : Set hostname of slurm server] ********************************
+2024-09-12 16:26:46,069 p=9275 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:26:46,075 p=9275 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:26:46,089 p=9275 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:26:46,095 p=9275 u=root n=ansible | PLAY [slurmserver] *************************************************************
+2024-09-12 16:26:46,117 p=9275 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 16:26:52,073 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:26:52,085 p=9275 u=root n=ansible | TASK [check local munge key file is removed] ***********************************
+2024-09-12 16:26:57,949 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:26:57,970 p=9275 u=root n=ansible | TASK [munge : Start Munge service] *********************************************
+2024-09-12 16:27:04,444 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:27:04,472 p=9275 u=root n=ansible | TASK [munge : Yum install epel] ************************************************
+2024-09-12 16:27:10,975 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:27:10,987 p=9275 u=root n=ansible | TASK [Yum install munge] *******************************************************
+2024-09-12 16:27:16,950 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:27:16,971 p=9275 u=root n=ansible | TASK [Register munge key] ******************************************************
+2024-09-12 16:27:22,906 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:27:22,933 p=9275 u=root n=ansible | TASK [set munge log directory access rights] ***********************************
+2024-09-12 16:27:28,492 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:27:28,503 p=9275 u=root n=ansible | TASK [munge : set log directory access rights] *********************************
+2024-09-12 16:27:34,118 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:27:34,211 p=9275 u=root n=ansible | TASK [Include "front" munge recipe] ********************************************
+2024-09-12 16:27:34,246 p=9275 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/munge/tasks/front.yml for 192.168.5.67
+2024-09-12 16:27:34,261 p=9275 u=root n=ansible | TASK [Create munge key] ********************************************************
+2024-09-12 16:27:34,281 p=9275 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:27:34,292 p=9275 u=root n=ansible | TASK [Generate munge key with password] ****************************************
+2024-09-12 16:27:34,310 p=9275 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:27:34,336 p=9275 u=root n=ansible | TASK [Create munge.key file with password] *************************************
+2024-09-12 16:27:34,356 p=9275 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:27:34,368 p=9275 u=root n=ansible | TASK [copy munge.key from server to local cache] *******************************
+2024-09-12 16:27:40,352 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:27:40,363 p=9275 u=root n=ansible | TASK [munge : Restart Munge service] *******************************************
+2024-09-12 16:27:40,383 p=9275 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:27:40,406 p=9275 u=root n=ansible | TASK [Start munge service] *****************************************************
+2024-09-12 16:27:46,173 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:27:46,184 p=9275 u=root n=ansible | TASK [Uninstall slurm RPMs] ****************************************************
+2024-09-12 16:27:46,196 p=9275 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:27:46,208 p=9275 u=root n=ansible | TASK [Remove /etc/slurm config] ************************************************
+2024-09-12 16:27:46,219 p=9275 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:27:46,232 p=9275 u=root n=ansible | TASK [slurm : set_fact] ********************************************************
+2024-09-12 16:27:46,250 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:27:46,279 p=9275 u=root n=ansible | TASK [slurm : stat] ************************************************************
+2024-09-12 16:27:51,956 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:27:51,982 p=9275 u=root n=ansible | TASK [slurm : Install epel repo] ***********************************************
+2024-09-12 16:27:58,172 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:27:58,184 p=9275 u=root n=ansible | TASK [slurm : Define a list of RPMs to download and install when using remotely] ***
+2024-09-12 16:27:58,219 p=9275 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:27:58,232 p=9275 u=root n=ansible | TASK [slurm : Install RPMs from downloaded files] ******************************
+2024-09-12 16:27:58,257 p=11628 u=root n=ansible | [DEPRECATION WARNING]: Invoking "yum" only once while using a loop via 
+squash_actions is deprecated. Instead of using a loop to supply multiple items 
+and specifying `name: "{{ item }}"`, please use `name: ['{{ rpm_files }}']` and
+ remove the loop. This feature will be removed in version 2.11. Deprecation 
+warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2024-09-12 16:28:04,400 p=9275 u=root n=ansible | failed: [192.168.5.67] (item=[u'slurm-21.08.8-2.el7.x86_64.rpm', u'slurm-perlapi-21.08.8-2.el7.x86_64.rpm', u'slurm-contribs-21.08.8-2.el7.x86_64.rpm', u'slurm-devel-21.08.8-2.el7.x86_64.rpm', u'slurm-example-configs-21.08.8-2.el7.x86_64.rpm', u'slurm-slurmctld-21.08.8-2.el7.x86_64.rpm', u'slurm-slurmd-21.08.8-2.el7.x86_64.rpm', u'sct-nvidia-builder-nvml-460.73.01-1.el7.x86_64.rpm']) => {"ansible_loop_var": "item", "changed": false, "item": ["slurm-21.08.8-2.el7.x86_64.rpm", "slurm-perlapi-21.08.8-2.el7.x86_64.rpm", "slurm-contribs-21.08.8-2.el7.x86_64.rpm", "slurm-devel-21.08.8-2.el7.x86_64.rpm", "slurm-example-configs-21.08.8-2.el7.x86_64.rpm", "slurm-slurmctld-21.08.8-2.el7.x86_64.rpm", "slurm-slurmd-21.08.8-2.el7.x86_64.rpm", "sct-nvidia-builder-nvml-460.73.01-1.el7.x86_64.rpm"], "msg": "No RPM file matching 'slurm-21.08.8-2.el7.x86_64.rpm' found on system", "rc": 127, "results": ["No RPM file matching 'slurm-21.08.8-2.el7.x86_64.rpm' found on system"]}
+2024-09-12 16:28:04,404 p=9275 u=root n=ansible | PLAY RECAP *********************************************************************
+2024-09-12 16:28:04,404 p=9275 u=root n=ansible | 192.168.5.119              : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2024-09-12 16:28:04,405 p=9275 u=root n=ansible | 192.168.5.133              : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2024-09-12 16:28:04,405 p=9275 u=root n=ansible | 192.168.5.67               : ok=17   changed=0    unreachable=0    failed=1    skipped=7    rescued=0    ignored=0   
+2024-09-12 16:32:06,992 p=11919 u=root n=ansible | PLAY [all_servers] *************************************************************
+2024-09-12 16:32:07,001 p=11919 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 16:32:08,530 p=11919 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:32:08,537 p=11919 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:32:15,265 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:32:15,291 p=11919 u=root n=ansible | TASK [vm_config : add to /etc/hosts file] **************************************
+2024-09-12 16:32:16,071 p=11919 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.67 c1)
+2024-09-12 16:32:16,074 p=11919 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.67 c1)
+2024-09-12 16:32:16,474 p=11919 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.133 c2)
+2024-09-12 16:32:16,587 p=11919 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.133 c2)
+2024-09-12 16:32:16,903 p=11919 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.119 c3)
+2024-09-12 16:32:17,103 p=11919 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.119 c3)
+2024-09-12 16:32:21,051 p=11919 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.67 c1)
+2024-09-12 16:32:26,918 p=11919 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.133 c2)
+2024-09-12 16:32:33,006 p=11919 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.119 c3)
+2024-09-12 16:32:33,037 p=11919 u=root n=ansible | TASK [vm_config : Set hostname of slurm server] ********************************
+2024-09-12 16:32:33,096 p=11919 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:32:33,131 p=11919 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:32:33,146 p=11919 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:32:33,153 p=11919 u=root n=ansible | PLAY [slurmserver] *************************************************************
+2024-09-12 16:32:33,202 p=11919 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 16:32:39,239 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:32:39,261 p=11919 u=root n=ansible | TASK [check local munge key file is removed] ***********************************
+2024-09-12 16:32:45,593 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:32:45,617 p=11919 u=root n=ansible | TASK [munge : Start Munge service] *********************************************
+2024-09-12 16:32:52,161 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:32:52,189 p=11919 u=root n=ansible | TASK [munge : Yum install epel] ************************************************
+2024-09-12 16:32:58,290 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:32:58,316 p=11919 u=root n=ansible | TASK [Yum install munge] *******************************************************
+2024-09-12 16:33:04,284 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:33:04,308 p=11919 u=root n=ansible | TASK [Register munge key] ******************************************************
+2024-09-12 16:33:10,138 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:33:10,172 p=11919 u=root n=ansible | TASK [set munge log directory access rights] ***********************************
+2024-09-12 16:33:15,917 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:33:15,943 p=11919 u=root n=ansible | TASK [munge : set log directory access rights] *********************************
+2024-09-12 16:33:21,486 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:33:21,575 p=11919 u=root n=ansible | TASK [Include "front" munge recipe] ********************************************
+2024-09-12 16:33:21,615 p=11919 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/munge/tasks/front.yml for 192.168.5.67
+2024-09-12 16:33:21,628 p=11919 u=root n=ansible | TASK [Create munge key] ********************************************************
+2024-09-12 16:33:21,648 p=11919 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:33:21,659 p=11919 u=root n=ansible | TASK [Generate munge key with password] ****************************************
+2024-09-12 16:33:21,678 p=11919 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:33:21,707 p=11919 u=root n=ansible | TASK [Create munge.key file with password] *************************************
+2024-09-12 16:33:21,726 p=11919 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:33:21,762 p=11919 u=root n=ansible | TASK [copy munge.key from server to local cache] *******************************
+2024-09-12 16:33:27,620 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:33:27,644 p=11919 u=root n=ansible | TASK [munge : Restart Munge service] *******************************************
+2024-09-12 16:33:27,666 p=11919 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:33:27,694 p=11919 u=root n=ansible | TASK [Start munge service] *****************************************************
+2024-09-12 16:33:33,479 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:33:33,490 p=11919 u=root n=ansible | TASK [Uninstall slurm RPMs] ****************************************************
+2024-09-12 16:33:33,502 p=11919 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:33:33,513 p=11919 u=root n=ansible | TASK [Remove /etc/slurm config] ************************************************
+2024-09-12 16:33:33,524 p=11919 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:33:33,535 p=11919 u=root n=ansible | TASK [slurm : set_fact] ********************************************************
+2024-09-12 16:33:33,555 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:33:33,583 p=11919 u=root n=ansible | TASK [slurm : stat] ************************************************************
+2024-09-12 16:33:39,305 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:33:39,331 p=11919 u=root n=ansible | TASK [slurm : Install epel repo] ***********************************************
+2024-09-12 16:33:45,656 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:33:45,681 p=11919 u=root n=ansible | TASK [slurm : Define a list of RPMs to download and install when using remotely] ***
+2024-09-12 16:33:45,710 p=11919 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:33:45,738 p=11919 u=root n=ansible | TASK [slurm : Install RPMs from downloaded files] ******************************
+2024-09-12 16:33:45,763 p=14162 u=root n=ansible | [DEPRECATION WARNING]: Invoking "yum" only once while using a loop via 
+squash_actions is deprecated. Instead of using a loop to supply multiple items 
+and specifying `name: "{{ item }}"`, please use `name: ['{{ rpm_files }}']` and
+ remove the loop. This feature will be removed in version 2.11. Deprecation 
+warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2024-09-12 16:33:52,522 p=11919 u=root n=ansible | failed: [192.168.5.67] (item=[u'slurm', u'slurm-perlapi', u'slurm-contribs', u'slurm-devel', u'slurm-example-configs', u'slurm-slurmctld', u'slurm-slurmd']) => {"ansible_loop_var": "item", "changed": false, "item": ["slurm", "slurm-perlapi", "slurm-contribs", "slurm-devel", "slurm-example-configs", "slurm-slurmctld", "slurm-slurmd"], "msg": "No package matching 'slurm-example-configs' found available, installed or updated", "rc": 126, "results": ["No package matching 'slurm-example-configs' found available, installed or updated"]}
+2024-09-12 16:33:52,523 p=11919 u=root n=ansible | PLAY RECAP *********************************************************************
+2024-09-12 16:33:52,523 p=11919 u=root n=ansible | 192.168.5.119              : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2024-09-12 16:33:52,524 p=11919 u=root n=ansible | 192.168.5.133              : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2024-09-12 16:33:52,524 p=11919 u=root n=ansible | 192.168.5.67               : ok=17   changed=0    unreachable=0    failed=1    skipped=7    rescued=0    ignored=0   
+2024-09-12 16:35:56,366 p=14397 u=root n=ansible | PLAY [all_servers] *************************************************************
+2024-09-12 16:35:56,376 p=14397 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 16:35:57,885 p=14397 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:35:57,894 p=14397 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:36:04,644 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:36:04,669 p=14397 u=root n=ansible | TASK [vm_config : add to /etc/hosts file] **************************************
+2024-09-12 16:36:05,480 p=14397 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.67 c1)
+2024-09-12 16:36:05,496 p=14397 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.67 c1)
+2024-09-12 16:36:05,979 p=14397 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.133 c2)
+2024-09-12 16:36:05,981 p=14397 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.133 c2)
+2024-09-12 16:36:06,483 p=14397 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.119 c3)
+2024-09-12 16:36:06,498 p=14397 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.119 c3)
+2024-09-12 16:36:10,474 p=14397 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.67 c1)
+2024-09-12 16:36:16,365 p=14397 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.133 c2)
+2024-09-12 16:36:21,841 p=14397 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.119 c3)
+2024-09-12 16:36:21,884 p=14397 u=root n=ansible | TASK [vm_config : Set hostname of slurm server] ********************************
+2024-09-12 16:36:21,963 p=14397 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:36:21,982 p=14397 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:36:22,017 p=14397 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:36:22,026 p=14397 u=root n=ansible | PLAY [slurmserver] *************************************************************
+2024-09-12 16:36:22,061 p=14397 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 16:36:28,346 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:36:28,370 p=14397 u=root n=ansible | TASK [check local munge key file is removed] ***********************************
+2024-09-12 16:36:34,239 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:36:34,267 p=14397 u=root n=ansible | TASK [munge : Start Munge service] *********************************************
+2024-09-12 16:36:40,760 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:36:40,793 p=14397 u=root n=ansible | TASK [munge : Yum install epel] ************************************************
+2024-09-12 16:36:46,997 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:36:47,027 p=14397 u=root n=ansible | TASK [Yum install munge] *******************************************************
+2024-09-12 16:36:53,106 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:36:53,135 p=14397 u=root n=ansible | TASK [Register munge key] ******************************************************
+2024-09-12 16:36:59,058 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:36:59,086 p=14397 u=root n=ansible | TASK [set munge log directory access rights] ***********************************
+2024-09-12 16:37:05,094 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:37:05,119 p=14397 u=root n=ansible | TASK [munge : set log directory access rights] *********************************
+2024-09-12 16:37:10,674 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:37:10,745 p=14397 u=root n=ansible | TASK [Include "front" munge recipe] ********************************************
+2024-09-12 16:37:10,778 p=14397 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/munge/tasks/front.yml for 192.168.5.67
+2024-09-12 16:37:10,793 p=14397 u=root n=ansible | TASK [Create munge key] ********************************************************
+2024-09-12 16:37:10,812 p=14397 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:37:10,824 p=14397 u=root n=ansible | TASK [Generate munge key with password] ****************************************
+2024-09-12 16:37:10,841 p=14397 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:37:10,853 p=14397 u=root n=ansible | TASK [Create munge.key file with password] *************************************
+2024-09-12 16:37:10,865 p=14397 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:37:10,878 p=14397 u=root n=ansible | TASK [copy munge.key from server to local cache] *******************************
+2024-09-12 16:37:16,533 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:37:16,558 p=14397 u=root n=ansible | TASK [munge : Restart Munge service] *******************************************
+2024-09-12 16:37:16,573 p=14397 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:37:16,597 p=14397 u=root n=ansible | TASK [Start munge service] *****************************************************
+2024-09-12 16:37:22,738 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:37:22,758 p=14397 u=root n=ansible | TASK [Uninstall slurm RPMs] ****************************************************
+2024-09-12 16:37:22,766 p=14397 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:37:22,778 p=14397 u=root n=ansible | TASK [Remove /etc/slurm config] ************************************************
+2024-09-12 16:37:22,790 p=14397 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:37:22,812 p=14397 u=root n=ansible | TASK [slurm : set_fact] ********************************************************
+2024-09-12 16:37:22,836 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:37:22,869 p=14397 u=root n=ansible | TASK [slurm : stat] ************************************************************
+2024-09-12 16:37:28,662 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:37:28,684 p=14397 u=root n=ansible | TASK [slurm : Install epel repo] ***********************************************
+2024-09-12 16:37:35,130 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:37:35,156 p=14397 u=root n=ansible | TASK [slurm : Define a list of RPMs to download and install when using remotely] ***
+2024-09-12 16:37:35,185 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:37:35,210 p=14397 u=root n=ansible | TASK [slurm : Install RPMs from downloaded files] ******************************
+2024-09-12 16:37:35,229 p=16631 u=root n=ansible | [DEPRECATION WARNING]: Invoking "yum" only once while using a loop via 
+squash_actions is deprecated. Instead of using a loop to supply multiple items 
+and specifying `name: "{{ item }}"`, please use `name: ['{{ rpm_files }}']` and
+ remove the loop. This feature will be removed in version 2.11. Deprecation 
+warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2024-09-12 16:38:10,301 p=14397 u=root n=ansible | changed: [192.168.5.67] => (item=[u'slurm', u'slurm-perlapi', u'slurm-contribs', u'slurm-devel', u'slurm-slurmctld', u'slurm-slurmd'])
+2024-09-12 16:38:10,315 p=14397 u=root n=ansible | TASK [slurm : Set SLURM conf file path as fact RH] *****************************
+2024-09-12 16:38:10,334 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:38:10,346 p=14397 u=root n=ansible | TASK [create slurm user and group] *********************************************
+2024-09-12 16:38:16,406 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:38:16,433 p=14397 u=root n=ansible | TASK [create folders used by SLURM and set slurm owner] ************************
+2024-09-12 16:38:22,547 p=14397 u=root n=ansible | changed: [192.168.5.67] => (item=/var/spool/slurm)
+2024-09-12 16:38:28,229 p=14397 u=root n=ansible | changed: [192.168.5.67] => (item=/var/log/slurm)
+2024-09-12 16:38:34,074 p=14397 u=root n=ansible | changed: [192.168.5.67] => (item=/var/slurm/checkpoint)
+2024-09-12 16:38:39,853 p=14397 u=root n=ansible | changed: [192.168.5.67] => (item=/etc/slurm)
+2024-09-12 16:38:39,888 p=14397 u=root n=ansible | TASK [slurm : Include "front" SLURM recipe] ************************************
+2024-09-12 16:38:39,939 p=14397 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/slurm/tasks/front.yml for 192.168.5.67
+2024-09-12 16:38:39,969 p=14397 u=root n=ansible | TASK [slurm : Copy 'is_cluster_ready' file] ************************************
+2024-09-12 16:38:51,124 p=14397 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:38:51,149 p=14397 u=root n=ansible | TASK [Include slurm config recipe] *********************************************
+2024-09-12 16:38:51,220 p=14397 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/slurm/tasks/config_file.yml for 192.168.5.67
+2024-09-12 16:38:51,261 p=14397 u=root n=ansible | TASK [Create the slurm.conf file] **********************************************
+2024-09-12 16:39:02,199 p=14397 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:39:02,211 p=14397 u=root n=ansible | TASK [slurm : Set blcr config in SLURM] ****************************************
+2024-09-12 16:39:02,228 p=14397 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:39:02,241 p=14397 u=root n=ansible | TASK [slurm : loop through] ****************************************************
+2024-09-12 16:39:02,277 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:39:02,301 p=14397 u=root n=ansible | TASK [configure compute nodes section of slurm.conf] ***************************
+2024-09-12 16:39:07,829 p=14397 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:39:07,856 p=14397 u=root n=ansible | TASK [configure partition section of slurm.conf - fast-only] *******************
+2024-09-12 16:39:13,484 p=14397 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:39:13,496 p=14397 u=root n=ansible | TASK [configure partition section of slurm.conf - fast partition] **************
+2024-09-12 16:39:13,512 p=14397 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:39:13,525 p=14397 u=root n=ansible | TASK [configure partition section of slurm.conf - slow partition] **************
+2024-09-12 16:39:13,541 p=14397 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:39:13,554 p=14397 u=root n=ansible | TASK [configure AccountingStorageType of slurm.conf - version 19] **************
+2024-09-12 16:39:13,569 p=14397 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:39:13,582 p=14397 u=root n=ansible | TASK [configure AccountingStoreFlags of slurm.conf - version 21] ***************
+2024-09-12 16:39:19,319 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:39:19,345 p=14397 u=root n=ansible | TASK [slurm : Start SLURM service in front node] *******************************
+2024-09-12 16:39:25,313 p=14397 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:39:25,327 p=14397 u=root n=ansible | TASK [Ensure slurmd is not running in front node] ******************************
+2024-09-12 16:39:30,812 p=14397 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:39:30,841 p=14397 u=root n=ansible | TASK [slurm : Reconfigure SLURM] ***********************************************
+2024-09-12 16:39:36,962 p=14397 u=root n=ansible | [WARNING]: Module remote_tmp /public/home/slurm/.ansible/tmp did not exist and
+was created with a mode of 0700, this may cause issues when running as another
+user. To avoid this, create the remote_tmp dir with the correct permissions
+manually
+
+2024-09-12 16:39:36,964 p=14397 u=root n=ansible | fatal: [192.168.5.67]: FAILED! => {"changed": true, "cmd": ["scontrol", "reconfigure"], "delta": "0:00:00.014531", "end": "2024-09-12 16:39:35.929440", "msg": "non-zero return code", "rc": 1, "start": "2024-09-12 16:39:35.914909", "stderr": "scontrol: error: _parse_next_key: Parsing error at unrecognized key: AccountingStoreFlags\nscontrol: error: Parse error in file /etc/slurm/slurm.conf line 128: \"AccountingStoreFlags=job_comment\"\nscontrol: fatal: Unable to process configuration file", "stderr_lines": ["scontrol: error: _parse_next_key: Parsing error at unrecognized key: AccountingStoreFlags", "scontrol: error: Parse error in file /etc/slurm/slurm.conf line 128: \"AccountingStoreFlags=job_comment\"", "scontrol: fatal: Unable to process configuration file"], "stdout": "", "stdout_lines": []}
+2024-09-12 16:39:36,965 p=14397 u=root n=ansible | PLAY RECAP *********************************************************************
+2024-09-12 16:39:36,965 p=14397 u=root n=ansible | 192.168.5.119              : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2024-09-12 16:39:36,966 p=14397 u=root n=ansible | 192.168.5.133              : ok=2    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2024-09-12 16:39:36,966 p=14397 u=root n=ansible | 192.168.5.67               : ok=31   changed=7    unreachable=0    failed=1    skipped=11   rescued=0    ignored=0   
+2024-09-12 16:48:06,772 p=19046 u=root n=ansible | PLAY [all_servers] *************************************************************
+2024-09-12 16:48:06,781 p=19046 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 16:48:08,358 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:48:08,386 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:48:15,127 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:48:15,152 p=19046 u=root n=ansible | TASK [vm_config : add to /etc/hosts file] **************************************
+2024-09-12 16:48:15,874 p=19046 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.67 c1)
+2024-09-12 16:48:15,897 p=19046 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.67 c1)
+2024-09-12 16:48:16,324 p=19046 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.133 c2)
+2024-09-12 16:48:16,336 p=19046 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.133 c2)
+2024-09-12 16:48:16,724 p=19046 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.119 c3)
+2024-09-12 16:48:16,838 p=19046 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.119 c3)
+2024-09-12 16:48:21,141 p=19046 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.67 c1)
+2024-09-12 16:48:27,156 p=19046 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.133 c2)
+2024-09-12 16:48:32,848 p=19046 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.119 c3)
+2024-09-12 16:48:32,877 p=19046 u=root n=ansible | TASK [vm_config : Set hostname of slurm server] ********************************
+2024-09-12 16:48:32,931 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:48:32,966 p=19046 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:48:32,980 p=19046 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:48:32,988 p=19046 u=root n=ansible | PLAY [slurmserver] *************************************************************
+2024-09-12 16:48:33,043 p=19046 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 16:48:39,259 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:48:39,287 p=19046 u=root n=ansible | TASK [check local munge key file is removed] ***********************************
+2024-09-12 16:48:45,012 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:48:45,037 p=19046 u=root n=ansible | TASK [munge : Start Munge service] *********************************************
+2024-09-12 16:48:51,506 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:48:51,519 p=19046 u=root n=ansible | TASK [munge : Yum install epel] ************************************************
+2024-09-12 16:48:57,830 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:48:57,857 p=19046 u=root n=ansible | TASK [Yum install munge] *******************************************************
+2024-09-12 16:49:03,771 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:49:03,799 p=19046 u=root n=ansible | TASK [Register munge key] ******************************************************
+2024-09-12 16:49:09,610 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:49:09,642 p=19046 u=root n=ansible | TASK [set munge log directory access rights] ***********************************
+2024-09-12 16:49:15,187 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:49:15,212 p=19046 u=root n=ansible | TASK [munge : set log directory access rights] *********************************
+2024-09-12 16:49:20,990 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:49:21,083 p=19046 u=root n=ansible | TASK [Include "front" munge recipe] ********************************************
+2024-09-12 16:49:21,146 p=19046 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/munge/tasks/front.yml for 192.168.5.67
+2024-09-12 16:49:21,183 p=19046 u=root n=ansible | TASK [Create munge key] ********************************************************
+2024-09-12 16:49:21,202 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:49:21,227 p=19046 u=root n=ansible | TASK [Generate munge key with password] ****************************************
+2024-09-12 16:49:21,250 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:49:21,274 p=19046 u=root n=ansible | TASK [Create munge.key file with password] *************************************
+2024-09-12 16:49:21,292 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:49:21,322 p=19046 u=root n=ansible | TASK [copy munge.key from server to local cache] *******************************
+2024-09-12 16:49:27,027 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:49:27,054 p=19046 u=root n=ansible | TASK [munge : Restart Munge service] *******************************************
+2024-09-12 16:49:27,075 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:49:27,101 p=19046 u=root n=ansible | TASK [Start munge service] *****************************************************
+2024-09-12 16:49:33,177 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:49:33,202 p=19046 u=root n=ansible | TASK [Uninstall slurm RPMs] ****************************************************
+2024-09-12 16:49:33,216 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:49:33,240 p=19046 u=root n=ansible | TASK [Remove /etc/slurm config] ************************************************
+2024-09-12 16:49:33,253 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:49:33,281 p=19046 u=root n=ansible | TASK [slurm : set_fact] ********************************************************
+2024-09-12 16:49:33,295 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:49:33,321 p=19046 u=root n=ansible | TASK [slurm : stat] ************************************************************
+2024-09-12 16:49:39,170 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:49:39,182 p=19046 u=root n=ansible | TASK [slurm : Install epel repo] ***********************************************
+2024-09-12 16:49:45,187 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:49:45,199 p=19046 u=root n=ansible | TASK [slurm : Define a list of RPMs to download and install when using remotely] ***
+2024-09-12 16:49:45,222 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:49:45,237 p=19046 u=root n=ansible | TASK [slurm : Install RPMs from downloaded files] ******************************
+2024-09-12 16:49:45,262 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:49:45,274 p=19046 u=root n=ansible | TASK [slurm : Set SLURM conf file path as fact RH] *****************************
+2024-09-12 16:49:45,294 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:49:45,322 p=19046 u=root n=ansible | TASK [create slurm user and group] *********************************************
+2024-09-12 16:49:51,449 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:49:51,472 p=19046 u=root n=ansible | TASK [create folders used by SLURM and set slurm owner] ************************
+2024-09-12 16:49:57,603 p=19046 u=root n=ansible | ok: [192.168.5.67] => (item=/var/spool/slurm)
+2024-09-12 16:50:03,014 p=19046 u=root n=ansible | ok: [192.168.5.67] => (item=/var/log/slurm)
+2024-09-12 16:50:08,824 p=19046 u=root n=ansible | ok: [192.168.5.67] => (item=/var/slurm/checkpoint)
+2024-09-12 16:50:14,803 p=19046 u=root n=ansible | ok: [192.168.5.67] => (item=/etc/slurm)
+2024-09-12 16:50:14,848 p=19046 u=root n=ansible | TASK [slurm : Include "front" SLURM recipe] ************************************
+2024-09-12 16:50:14,915 p=19046 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/slurm/tasks/front.yml for 192.168.5.67
+2024-09-12 16:50:14,954 p=19046 u=root n=ansible | TASK [slurm : Copy 'is_cluster_ready' file] ************************************
+2024-09-12 16:50:20,977 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:50:21,003 p=19046 u=root n=ansible | TASK [Include slurm config recipe] *********************************************
+2024-09-12 16:50:21,062 p=19046 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/slurm/tasks/config_file.yml for 192.168.5.67
+2024-09-12 16:50:21,090 p=19046 u=root n=ansible | TASK [Create the slurm.conf file] **********************************************
+2024-09-12 16:50:31,897 p=19046 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:50:31,909 p=19046 u=root n=ansible | TASK [slurm : Set blcr config in SLURM] ****************************************
+2024-09-12 16:50:31,928 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:50:31,939 p=19046 u=root n=ansible | TASK [slurm : loop through] ****************************************************
+2024-09-12 16:50:31,975 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:50:31,988 p=19046 u=root n=ansible | TASK [configure compute nodes section of slurm.conf] ***************************
+2024-09-12 16:50:37,567 p=19046 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:50:37,590 p=19046 u=root n=ansible | TASK [configure partition section of slurm.conf - fast-only] *******************
+2024-09-12 16:50:43,657 p=19046 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:50:43,686 p=19046 u=root n=ansible | TASK [configure partition section of slurm.conf - ffast partition] *************
+2024-09-12 16:50:43,701 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:50:43,731 p=19046 u=root n=ansible | TASK [configure partition section of slurm.conf - slow partition] **************
+2024-09-12 16:50:43,755 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:50:43,789 p=19046 u=root n=ansible | TASK [configure AccountingStorageType of slurm.conf - version 19] **************
+2024-09-12 16:50:43,813 p=19046 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:50:43,846 p=19046 u=root n=ansible | TASK [configure AccountingStoreFlags of slurm.conf - version 21] ***************
+2024-09-12 16:50:49,700 p=19046 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:50:49,711 p=19046 u=root n=ansible | TASK [slurm : Start SLURM service in front node] *******************************
+2024-09-12 16:50:55,860 p=19046 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:50:55,887 p=19046 u=root n=ansible | TASK [Ensure slurmd is not running in front node] ******************************
+2024-09-12 16:51:01,380 p=19046 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:51:01,405 p=19046 u=root n=ansible | TASK [slurm : Reconfigure SLURM] ***********************************************
+2024-09-12 16:51:07,274 p=19046 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:51:07,300 p=19046 u=root n=ansible | TASK [allow the slurm user to access the slurm logs] ***************************
+2024-09-12 16:51:12,785 p=19046 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:51:12,793 p=19046 u=root n=ansible | PLAY [slurmworker] *************************************************************
+2024-09-12 16:51:12,841 p=19046 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 16:51:14,060 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:51:14,291 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:51:14,318 p=19046 u=root n=ansible | TASK [check local munge key file is removed] ***********************************
+2024-09-12 16:51:14,857 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:51:14,909 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:51:14,942 p=19046 u=root n=ansible | TASK [munge : Start Munge service] *********************************************
+2024-09-12 16:51:15,664 p=19046 u=root n=ansible | fatal: [192.168.5.133]: FAILED! => {"changed": false, "msg": "Unable to start service munge: Job for munge.service failed because the control process exited with error code. See \"systemctl status munge.service\" and \"journalctl -xe\" for details.\n"}
+2024-09-12 16:51:15,664 p=19046 u=root n=ansible | ...ignoring
+2024-09-12 16:51:15,701 p=19046 u=root n=ansible | fatal: [192.168.5.119]: FAILED! => {"changed": false, "msg": "Unable to start service munge: Job for munge.service failed because the control process exited with error code. See \"systemctl status munge.service\" and \"journalctl -xe\" for details.\n"}
+2024-09-12 16:51:15,702 p=19046 u=root n=ansible | ...ignoring
+2024-09-12 16:51:15,733 p=19046 u=root n=ansible | TASK [munge : Yum install epel] ************************************************
+2024-09-12 16:51:29,765 p=19046 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:51:30,983 p=19046 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:51:31,015 p=19046 u=root n=ansible | TASK [Yum install munge] *******************************************************
+2024-09-12 16:51:31,866 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:51:31,932 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:51:31,963 p=19046 u=root n=ansible | TASK [Register munge key] ******************************************************
+2024-09-12 16:51:32,523 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:51:32,533 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:51:32,565 p=19046 u=root n=ansible | TASK [set munge log directory access rights] ***********************************
+2024-09-12 16:51:33,123 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:51:33,169 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:51:33,209 p=19046 u=root n=ansible | TASK [munge : set log directory access rights] *********************************
+2024-09-12 16:51:33,741 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:51:33,770 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:51:33,805 p=19046 u=root n=ansible | TASK [Include "wn" munge recipe] ***********************************************
+2024-09-12 16:51:33,902 p=19046 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/munge/tasks/wn.yml for 192.168.5.119, 192.168.5.133
+2024-09-12 16:51:33,926 p=19046 u=root n=ansible | TASK [copy munge.key file to the slurm worker node] ****************************
+2024-09-12 16:51:34,944 p=19046 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:51:34,981 p=19046 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:51:35,013 p=19046 u=root n=ansible | TASK [munge : Restart Munge service] *******************************************
+2024-09-12 16:51:35,749 p=19046 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:51:35,805 p=19046 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:51:35,838 p=19046 u=root n=ansible | TASK [Make sure the munge service is started] **********************************
+2024-09-12 16:51:36,605 p=19046 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:51:36,608 p=19046 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:51:36,647 p=19046 u=root n=ansible | TASK [remove the local copy of the munge key file] *****************************
+2024-09-12 16:51:36,929 p=19046 u=root n=ansible | [WARNING]: Consider using the file module with state=absent rather than running
+'rm'.  If you need to use command because file is insufficient you can add
+'warn: false' to this command task or set 'command_warnings=False' in
+ansible.cfg to get rid of this message.
+
+2024-09-12 16:51:36,929 p=19046 u=root n=ansible | changed: [192.168.5.119 -> localhost]
+2024-09-12 16:51:36,952 p=19046 u=root n=ansible | changed: [192.168.5.133 -> localhost]
+2024-09-12 16:51:36,972 p=19046 u=root n=ansible | TASK [Uninstall slurm RPMs] ****************************************************
+2024-09-12 16:51:36,997 p=19046 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:51:37,003 p=19046 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:51:37,023 p=19046 u=root n=ansible | TASK [Remove /etc/slurm config] ************************************************
+2024-09-12 16:51:37,049 p=19046 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:51:37,057 p=19046 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:51:37,080 p=19046 u=root n=ansible | TASK [slurm : set_fact] ********************************************************
+2024-09-12 16:51:37,110 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:51:37,125 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:51:37,137 p=19046 u=root n=ansible | TASK [slurm : stat] ************************************************************
+2024-09-12 16:51:37,609 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:51:37,657 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:51:37,679 p=19046 u=root n=ansible | TASK [slurm : Install epel repo] ***********************************************
+2024-09-12 16:51:46,042 p=19046 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:51:46,641 p=19046 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:51:46,670 p=19046 u=root n=ansible | TASK [slurm : Define a list of RPMs to download and install when using remotely] ***
+2024-09-12 16:51:46,710 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:51:46,740 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:51:46,768 p=19046 u=root n=ansible | TASK [slurm : Install RPMs from downloaded files] ******************************
+2024-09-12 16:51:46,792 p=23745 u=root n=ansible | [DEPRECATION WARNING]: Invoking "yum" only once while using a loop via 
+squash_actions is deprecated. Instead of using a loop to supply multiple items 
+and specifying `name: "{{ item }}"`, please use `name: ['{{ rpm_files }}']` and
+ remove the loop. This feature will be removed in version 2.11. Deprecation 
+warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2024-09-12 16:51:46,829 p=23746 u=root n=ansible | [DEPRECATION WARNING]: Invoking "yum" only once while using a loop via 
+squash_actions is deprecated. Instead of using a loop to supply multiple items 
+and specifying `name: "{{ item }}"`, please use `name: ['{{ rpm_files }}']` and
+ remove the loop. This feature will be removed in version 2.11. Deprecation 
+warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2024-09-12 16:52:05,946 p=19046 u=root n=ansible | changed: [192.168.5.119] => (item=[u'slurm', u'slurm-perlapi', u'slurm-contribs', u'slurm-devel', u'slurm-slurmctld', u'slurm-slurmd'])
+2024-09-12 16:52:13,233 p=19046 u=root n=ansible | changed: [192.168.5.133] => (item=[u'slurm', u'slurm-perlapi', u'slurm-contribs', u'slurm-devel', u'slurm-slurmctld', u'slurm-slurmd'])
+2024-09-12 16:52:13,266 p=19046 u=root n=ansible | TASK [slurm : Set SLURM conf file path as fact RH] *****************************
+2024-09-12 16:52:13,312 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:52:13,324 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:52:13,357 p=19046 u=root n=ansible | TASK [create slurm user and group] *********************************************
+2024-09-12 16:52:13,938 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:52:13,987 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:52:14,015 p=19046 u=root n=ansible | TASK [create folders used by SLURM and set slurm owner] ************************
+2024-09-12 16:52:14,601 p=19046 u=root n=ansible | changed: [192.168.5.119] => (item=/var/spool/slurm)
+2024-09-12 16:52:14,617 p=19046 u=root n=ansible | changed: [192.168.5.133] => (item=/var/spool/slurm)
+2024-09-12 16:52:15,132 p=19046 u=root n=ansible | changed: [192.168.5.119] => (item=/var/log/slurm)
+2024-09-12 16:52:15,197 p=19046 u=root n=ansible | changed: [192.168.5.133] => (item=/var/log/slurm)
+2024-09-12 16:52:15,711 p=19046 u=root n=ansible | changed: [192.168.5.119] => (item=/var/slurm/checkpoint)
+2024-09-12 16:52:15,719 p=19046 u=root n=ansible | changed: [192.168.5.133] => (item=/var/slurm/checkpoint)
+2024-09-12 16:52:16,247 p=19046 u=root n=ansible | changed: [192.168.5.119] => (item=/etc/slurm)
+2024-09-12 16:52:16,263 p=19046 u=root n=ansible | changed: [192.168.5.133] => (item=/etc/slurm)
+2024-09-12 16:52:16,297 p=19046 u=root n=ansible | TASK [slurm : Include "wn" SLURM recipe] ***************************************
+2024-09-12 16:52:16,394 p=19046 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/slurm/tasks/wn.yml for 192.168.5.119, 192.168.5.133
+2024-09-12 16:52:16,425 p=19046 u=root n=ansible | TASK [slurm : service] *********************************************************
+2024-09-12 16:52:17,068 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:52:17,163 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:52:17,194 p=19046 u=root n=ansible | TASK [Include slurm config recipe] *********************************************
+2024-09-12 16:52:17,305 p=19046 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/slurm/tasks/config_file.yml for 192.168.5.119, 192.168.5.133
+2024-09-12 16:52:17,337 p=19046 u=root n=ansible | TASK [Create the slurm.conf file] **********************************************
+2024-09-12 16:52:18,390 p=19046 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:52:18,448 p=19046 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:52:18,476 p=19046 u=root n=ansible | TASK [slurm : Set blcr config in SLURM] ****************************************
+2024-09-12 16:52:18,505 p=19046 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:52:18,518 p=19046 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:52:18,538 p=19046 u=root n=ansible | TASK [slurm : loop through] ****************************************************
+2024-09-12 16:52:18,578 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:52:18,586 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:52:18,604 p=19046 u=root n=ansible | TASK [configure compute nodes section of slurm.conf] ***************************
+2024-09-12 16:52:19,142 p=19046 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:52:19,178 p=19046 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:52:19,206 p=19046 u=root n=ansible | TASK [configure partition section of slurm.conf - fast-only] *******************
+2024-09-12 16:52:19,750 p=19046 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:52:19,788 p=19046 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:52:19,819 p=19046 u=root n=ansible | TASK [configure partition section of slurm.conf - ffast partition] *************
+2024-09-12 16:52:19,865 p=19046 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:52:19,885 p=19046 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:52:19,903 p=19046 u=root n=ansible | TASK [configure partition section of slurm.conf - slow partition] **************
+2024-09-12 16:52:19,934 p=19046 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:52:19,955 p=19046 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:52:19,976 p=19046 u=root n=ansible | TASK [configure AccountingStorageType of slurm.conf - version 19] **************
+2024-09-12 16:52:20,007 p=19046 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:52:20,028 p=19046 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:52:20,048 p=19046 u=root n=ansible | TASK [configure AccountingStoreFlags of slurm.conf - version 21] ***************
+2024-09-12 16:52:20,590 p=19046 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:52:20,626 p=19046 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:52:20,656 p=19046 u=root n=ansible | TASK [Modify slurm config setting for controller node (when needed)] ***********
+2024-09-12 16:52:21,202 p=19046 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:52:21,227 p=19046 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:52:21,261 p=19046 u=root n=ansible | TASK [slurm : Start Slurm Daemon in worker node] *******************************
+2024-09-12 16:52:22,218 p=19046 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:52:22,254 p=19046 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:52:22,285 p=19046 u=root n=ansible | TASK [Ensure slurmctld is not running in worker node] **************************
+2024-09-12 16:52:22,952 p=19046 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:52:23,003 p=19046 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:52:23,039 p=19046 u=root n=ansible | TASK [slurm : Reconfigure SLURM] ***********************************************
+2024-09-12 16:52:28,651 p=19046 u=root n=ansible | fatal: [192.168.5.133]: FAILED! => {"changed": true, "cmd": ["scontrol", "reconfigure"], "delta": "0:00:05.064653", "end": "2024-09-12 16:56:14.525909", "msg": "non-zero return code", "rc": 1, "start": "2024-09-12 16:56:09.461256", "stderr": "scontrol: error: get_addr_info: getaddrinfo() failed: Name or service not known\nscontrol: error: slurm_set_addr: Unable to resolve \"slurmserver\"\nscontrol: error: Unable to establish control machine address\nslurm_reconfigure error: No such file or directory", "stderr_lines": ["scontrol: error: get_addr_info: getaddrinfo() failed: Name or service not known", "scontrol: error: slurm_set_addr: Unable to resolve \"slurmserver\"", "scontrol: error: Unable to establish control machine address", "slurm_reconfigure error: No such file or directory"], "stdout": "", "stdout_lines": []}
+2024-09-12 16:52:28,657 p=19046 u=root n=ansible | fatal: [192.168.5.119]: FAILED! => {"changed": true, "cmd": ["scontrol", "reconfigure"], "delta": "0:00:05.047350", "end": "2024-09-12 16:56:14.527188", "msg": "non-zero return code", "rc": 1, "start": "2024-09-12 16:56:09.479838", "stderr": "scontrol: error: get_addr_info: getaddrinfo() failed: Name or service not known\nscontrol: error: slurm_set_addr: Unable to resolve \"slurmserver\"\nscontrol: error: Unable to establish control machine address\nslurm_reconfigure error: No such file or directory", "stderr_lines": ["scontrol: error: get_addr_info: getaddrinfo() failed: Name or service not known", "scontrol: error: slurm_set_addr: Unable to resolve \"slurmserver\"", "scontrol: error: Unable to establish control machine address", "slurm_reconfigure error: No such file or directory"], "stdout": "", "stdout_lines": []}
+2024-09-12 16:52:28,659 p=19046 u=root n=ansible | PLAY RECAP *********************************************************************
+2024-09-12 16:52:28,660 p=19046 u=root n=ansible | 192.168.5.119              : ok=34   changed=14   unreachable=0    failed=1    skipped=7    rescued=0    ignored=1   
+2024-09-12 16:52:28,660 p=19046 u=root n=ansible | 192.168.5.133              : ok=34   changed=14   unreachable=0    failed=1    skipped=7    rescued=0    ignored=1   
+2024-09-12 16:52:28,661 p=19046 u=root n=ansible | 192.168.5.67               : ok=31   changed=7    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0   
+2024-09-12 16:57:33,083 p=24716 u=root n=ansible | PLAY [all_servers] *************************************************************
+2024-09-12 16:57:33,092 p=24716 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 16:57:34,622 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:34,629 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:57:34,639 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:57:34,660 p=24716 u=root n=ansible | TASK [vm_config : add to /etc/hosts file] **************************************
+2024-09-12 16:57:35,316 p=24716 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.67 c1)
+2024-09-12 16:57:35,392 p=24716 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.67 c1)
+2024-09-12 16:57:35,402 p=24716 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.67 c1)
+2024-09-12 16:57:35,709 p=24716 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.133 c2)
+2024-09-12 16:57:35,871 p=24716 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.133 c2)
+2024-09-12 16:57:35,876 p=24716 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.133 c2)
+2024-09-12 16:57:36,107 p=24716 u=root n=ansible | ok: [192.168.5.67] => (item=192.168.5.119 c3)
+2024-09-12 16:57:36,339 p=24716 u=root n=ansible | ok: [192.168.5.133] => (item=192.168.5.119 c3)
+2024-09-12 16:57:36,392 p=24716 u=root n=ansible | ok: [192.168.5.119] => (item=192.168.5.119 c3)
+2024-09-12 16:57:36,424 p=24716 u=root n=ansible | TASK [vm_config : Set hostname of slurm server] ********************************
+2024-09-12 16:57:36,539 p=24716 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:57:36,540 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:36,554 p=24716 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:57:36,559 p=24716 u=root n=ansible | PLAY [slurmserver] *************************************************************
+2024-09-12 16:57:36,581 p=24716 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 16:57:37,490 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:37,521 p=24716 u=root n=ansible | TASK [check local munge key file is removed] ***********************************
+2024-09-12 16:57:38,172 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:38,196 p=24716 u=root n=ansible | TASK [munge : Start Munge service] *********************************************
+2024-09-12 16:57:39,096 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:39,119 p=24716 u=root n=ansible | TASK [munge : Yum install epel] ************************************************
+2024-09-12 16:57:40,162 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:40,189 p=24716 u=root n=ansible | TASK [Yum install munge] *******************************************************
+2024-09-12 16:57:40,965 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:40,993 p=24716 u=root n=ansible | TASK [Register munge key] ******************************************************
+2024-09-12 16:57:41,609 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:41,637 p=24716 u=root n=ansible | TASK [set munge log directory access rights] ***********************************
+2024-09-12 16:57:42,090 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:42,111 p=24716 u=root n=ansible | TASK [munge : set log directory access rights] *********************************
+2024-09-12 16:57:42,500 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:42,579 p=24716 u=root n=ansible | TASK [Include "front" munge recipe] ********************************************
+2024-09-12 16:57:42,619 p=24716 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/munge/tasks/front.yml for 192.168.5.67
+2024-09-12 16:57:42,648 p=24716 u=root n=ansible | TASK [Create munge key] ********************************************************
+2024-09-12 16:57:42,661 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:42,684 p=24716 u=root n=ansible | TASK [Generate munge key with password] ****************************************
+2024-09-12 16:57:42,695 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:42,719 p=24716 u=root n=ansible | TASK [Create munge.key file with password] *************************************
+2024-09-12 16:57:42,731 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:42,755 p=24716 u=root n=ansible | TASK [copy munge.key from server to local cache] *******************************
+2024-09-12 16:57:43,263 p=24716 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:57:43,290 p=24716 u=root n=ansible | TASK [munge : Restart Munge service] *******************************************
+2024-09-12 16:57:43,309 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:43,335 p=24716 u=root n=ansible | TASK [Start munge service] *****************************************************
+2024-09-12 16:57:43,799 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:43,811 p=24716 u=root n=ansible | TASK [Uninstall slurm RPMs] ****************************************************
+2024-09-12 16:57:43,820 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:43,831 p=24716 u=root n=ansible | TASK [Remove /etc/slurm config] ************************************************
+2024-09-12 16:57:43,843 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:43,855 p=24716 u=root n=ansible | TASK [slurm : set_fact] ********************************************************
+2024-09-12 16:57:43,871 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:43,883 p=24716 u=root n=ansible | TASK [slurm : stat] ************************************************************
+2024-09-12 16:57:44,332 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:44,353 p=24716 u=root n=ansible | TASK [slurm : Install epel repo] ***********************************************
+2024-09-12 16:57:45,210 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:45,221 p=24716 u=root n=ansible | TASK [slurm : Define a list of RPMs to download and install when using remotely] ***
+2024-09-12 16:57:45,242 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:45,267 p=24716 u=root n=ansible | TASK [slurm : Install RPMs from downloaded files] ******************************
+2024-09-12 16:57:45,290 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:45,320 p=24716 u=root n=ansible | TASK [slurm : Set SLURM conf file path as fact RH] *****************************
+2024-09-12 16:57:45,344 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:45,373 p=24716 u=root n=ansible | TASK [create slurm user and group] *********************************************
+2024-09-12 16:57:46,074 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:46,102 p=24716 u=root n=ansible | TASK [create folders used by SLURM and set slurm owner] ************************
+2024-09-12 16:57:46,548 p=24716 u=root n=ansible | ok: [192.168.5.67] => (item=/var/spool/slurm)
+2024-09-12 16:57:46,965 p=24716 u=root n=ansible | ok: [192.168.5.67] => (item=/var/log/slurm)
+2024-09-12 16:57:47,459 p=24716 u=root n=ansible | ok: [192.168.5.67] => (item=/var/slurm/checkpoint)
+2024-09-12 16:57:47,882 p=24716 u=root n=ansible | ok: [192.168.5.67] => (item=/etc/slurm)
+2024-09-12 16:57:47,920 p=24716 u=root n=ansible | TASK [slurm : Include "front" SLURM recipe] ************************************
+2024-09-12 16:57:47,956 p=24716 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/slurm/tasks/front.yml for 192.168.5.67
+2024-09-12 16:57:47,971 p=24716 u=root n=ansible | TASK [slurm : Copy 'is_cluster_ready' file] ************************************
+2024-09-12 16:57:48,436 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:48,462 p=24716 u=root n=ansible | TASK [Include slurm config recipe] *********************************************
+2024-09-12 16:57:48,512 p=24716 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/slurm/tasks/config_file.yml for 192.168.5.67
+2024-09-12 16:57:48,543 p=24716 u=root n=ansible | TASK [Create the slurm.conf file] **********************************************
+2024-09-12 16:57:49,567 p=24716 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:57:49,579 p=24716 u=root n=ansible | TASK [slurm : Set blcr config in SLURM] ****************************************
+2024-09-12 16:57:49,596 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:49,608 p=24716 u=root n=ansible | TASK [slurm : loop through] ****************************************************
+2024-09-12 16:57:49,634 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:49,676 p=24716 u=root n=ansible | TASK [configure compute nodes section of slurm.conf] ***************************
+2024-09-12 16:57:50,134 p=24716 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:57:50,161 p=24716 u=root n=ansible | TASK [configure partition section of slurm.conf - fast-only] *******************
+2024-09-12 16:57:50,560 p=24716 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:57:50,572 p=24716 u=root n=ansible | TASK [configure partition section of slurm.conf - ffast partition] *************
+2024-09-12 16:57:50,593 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:50,623 p=24716 u=root n=ansible | TASK [configure partition section of slurm.conf - slow partition] **************
+2024-09-12 16:57:50,649 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:50,681 p=24716 u=root n=ansible | TASK [configure AccountingStorageType of slurm.conf - version 19] **************
+2024-09-12 16:57:50,708 p=24716 u=root n=ansible | skipping: [192.168.5.67]
+2024-09-12 16:57:50,731 p=24716 u=root n=ansible | TASK [configure AccountingStoreFlags of slurm.conf - version 21] ***************
+2024-09-12 16:57:51,177 p=24716 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:57:51,210 p=24716 u=root n=ansible | TASK [slurm : Start SLURM service in front node] *******************************
+2024-09-12 16:57:52,004 p=24716 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:57:52,035 p=24716 u=root n=ansible | TASK [Ensure slurmd is not running in front node] ******************************
+2024-09-12 16:57:52,670 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:52,691 p=24716 u=root n=ansible | TASK [slurm : Reconfigure SLURM] ***********************************************
+2024-09-12 16:57:53,298 p=24716 u=root n=ansible | changed: [192.168.5.67]
+2024-09-12 16:57:53,334 p=24716 u=root n=ansible | TASK [allow the slurm user to access the slurm logs] ***************************
+2024-09-12 16:57:53,721 p=24716 u=root n=ansible | ok: [192.168.5.67]
+2024-09-12 16:57:53,731 p=24716 u=root n=ansible | PLAY [slurmworker] *************************************************************
+2024-09-12 16:57:53,792 p=24716 u=root n=ansible | TASK [Gathering Facts] *********************************************************
+2024-09-12 16:57:54,814 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:57:54,876 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:57:54,904 p=24716 u=root n=ansible | TASK [check local munge key file is removed] ***********************************
+2024-09-12 16:57:55,448 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:57:55,468 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:57:55,500 p=24716 u=root n=ansible | TASK [munge : Start Munge service] *********************************************
+2024-09-12 16:57:56,242 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:57:56,271 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:57:56,300 p=24716 u=root n=ansible | TASK [munge : Yum install epel] ************************************************
+2024-09-12 16:57:57,148 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:57:57,195 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:57:57,206 p=24716 u=root n=ansible | TASK [Yum install munge] *******************************************************
+2024-09-12 16:57:58,053 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:57:58,088 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:57:58,118 p=24716 u=root n=ansible | TASK [Register munge key] ******************************************************
+2024-09-12 16:57:58,702 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:57:58,714 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:57:58,749 p=24716 u=root n=ansible | TASK [set munge log directory access rights] ***********************************
+2024-09-12 16:57:59,310 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:57:59,315 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:57:59,350 p=24716 u=root n=ansible | TASK [munge : set log directory access rights] *********************************
+2024-09-12 16:57:59,918 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:57:59,930 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:57:59,965 p=24716 u=root n=ansible | TASK [Include "wn" munge recipe] ***********************************************
+2024-09-12 16:58:00,092 p=24716 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/munge/tasks/wn.yml for 192.168.5.119, 192.168.5.133
+2024-09-12 16:58:00,130 p=24716 u=root n=ansible | TASK [copy munge.key file to the slurm worker node] ****************************
+2024-09-12 16:58:01,089 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:58:01,115 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:58:01,146 p=24716 u=root n=ansible | TASK [munge : Restart Munge service] *******************************************
+2024-09-12 16:58:01,196 p=24716 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:58:01,222 p=24716 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:58:01,256 p=24716 u=root n=ansible | TASK [Make sure the munge service is started] **********************************
+2024-09-12 16:58:01,901 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:58:01,979 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:58:02,018 p=24716 u=root n=ansible | TASK [remove the local copy of the munge key file] *****************************
+2024-09-12 16:58:02,281 p=24716 u=root n=ansible | [WARNING]: Consider using the file module with state=absent rather than running
+'rm'.  If you need to use command because file is insufficient you can add
+'warn: false' to this command task or set 'command_warnings=False' in
+ansible.cfg to get rid of this message.
+
+2024-09-12 16:58:02,281 p=24716 u=root n=ansible | changed: [192.168.5.119 -> localhost]
+2024-09-12 16:58:02,322 p=24716 u=root n=ansible | changed: [192.168.5.133 -> localhost]
+2024-09-12 16:58:02,333 p=24716 u=root n=ansible | TASK [Uninstall slurm RPMs] ****************************************************
+2024-09-12 16:58:02,356 p=24716 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:58:02,360 p=24716 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:58:02,371 p=24716 u=root n=ansible | TASK [Remove /etc/slurm config] ************************************************
+2024-09-12 16:58:02,391 p=24716 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:58:02,398 p=24716 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:58:02,408 p=24716 u=root n=ansible | TASK [slurm : set_fact] ********************************************************
+2024-09-12 16:58:02,428 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:58:02,440 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:58:02,459 p=24716 u=root n=ansible | TASK [slurm : stat] ************************************************************
+2024-09-12 16:58:02,985 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:58:02,988 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:58:03,017 p=24716 u=root n=ansible | TASK [slurm : Install epel repo] ***********************************************
+2024-09-12 16:58:04,061 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:58:04,106 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:58:04,139 p=24716 u=root n=ansible | TASK [slurm : Define a list of RPMs to download and install when using remotely] ***
+2024-09-12 16:58:04,187 p=24716 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:58:04,211 p=24716 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:58:04,243 p=24716 u=root n=ansible | TASK [slurm : Install RPMs from downloaded files] ******************************
+2024-09-12 16:58:04,283 p=24716 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:58:04,302 p=24716 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:58:04,323 p=24716 u=root n=ansible | TASK [slurm : Set SLURM conf file path as fact RH] *****************************
+2024-09-12 16:58:04,356 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:58:04,368 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:58:04,390 p=24716 u=root n=ansible | TASK [create slurm user and group] *********************************************
+2024-09-12 16:58:04,996 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:58:04,999 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:58:05,029 p=24716 u=root n=ansible | TASK [create folders used by SLURM and set slurm owner] ************************
+2024-09-12 16:58:05,630 p=24716 u=root n=ansible | ok: [192.168.5.133] => (item=/var/spool/slurm)
+2024-09-12 16:58:05,636 p=24716 u=root n=ansible | ok: [192.168.5.119] => (item=/var/spool/slurm)
+2024-09-12 16:58:06,177 p=24716 u=root n=ansible | ok: [192.168.5.133] => (item=/var/log/slurm)
+2024-09-12 16:58:06,244 p=24716 u=root n=ansible | ok: [192.168.5.119] => (item=/var/log/slurm)
+2024-09-12 16:58:06,744 p=24716 u=root n=ansible | ok: [192.168.5.133] => (item=/var/slurm/checkpoint)
+2024-09-12 16:58:06,798 p=24716 u=root n=ansible | ok: [192.168.5.119] => (item=/var/slurm/checkpoint)
+2024-09-12 16:58:07,276 p=24716 u=root n=ansible | ok: [192.168.5.133] => (item=/etc/slurm)
+2024-09-12 16:58:07,348 p=24716 u=root n=ansible | ok: [192.168.5.119] => (item=/etc/slurm)
+2024-09-12 16:58:07,391 p=24716 u=root n=ansible | TASK [slurm : Include "wn" SLURM recipe] ***************************************
+2024-09-12 16:58:07,505 p=24716 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/slurm/tasks/wn.yml for 192.168.5.119, 192.168.5.133
+2024-09-12 16:58:07,534 p=24716 u=root n=ansible | TASK [slurm : service] *********************************************************
+2024-09-12 16:58:08,206 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:58:08,210 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:58:08,246 p=24716 u=root n=ansible | TASK [Include slurm config recipe] *********************************************
+2024-09-12 16:58:08,352 p=24716 u=root n=ansible | included: /etc/ansible/roles/slurm-playbook/roles/slurm/tasks/config_file.yml for 192.168.5.119, 192.168.5.133
+2024-09-12 16:58:08,388 p=24716 u=root n=ansible | TASK [Create the slurm.conf file] **********************************************
+2024-09-12 16:58:09,471 p=24716 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:58:09,518 p=24716 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:58:09,545 p=24716 u=root n=ansible | TASK [slurm : Set blcr config in SLURM] ****************************************
+2024-09-12 16:58:09,577 p=24716 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:58:09,598 p=24716 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:58:09,632 p=24716 u=root n=ansible | TASK [slurm : loop through] ****************************************************
+2024-09-12 16:58:09,671 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:58:09,696 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:58:09,707 p=24716 u=root n=ansible | TASK [configure compute nodes section of slurm.conf] ***************************
+2024-09-12 16:58:10,247 p=24716 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:58:10,254 p=24716 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:58:10,291 p=24716 u=root n=ansible | TASK [configure partition section of slurm.conf - fast-only] *******************
+2024-09-12 16:58:10,825 p=24716 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:58:10,884 p=24716 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:58:10,918 p=24716 u=root n=ansible | TASK [configure partition section of slurm.conf - ffast partition] *************
+2024-09-12 16:58:10,967 p=24716 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:58:10,989 p=24716 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:58:11,023 p=24716 u=root n=ansible | TASK [configure partition section of slurm.conf - slow partition] **************
+2024-09-12 16:58:11,053 p=24716 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:58:11,070 p=24716 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:58:11,089 p=24716 u=root n=ansible | TASK [configure AccountingStorageType of slurm.conf - version 19] **************
+2024-09-12 16:58:11,112 p=24716 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:58:11,124 p=24716 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:58:11,159 p=24716 u=root n=ansible | TASK [configure AccountingStoreFlags of slurm.conf - version 21] ***************
+2024-09-12 16:58:11,715 p=24716 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:58:11,717 p=24716 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:58:11,750 p=24716 u=root n=ansible | TASK [Modify slurm config setting for controller node (when needed)] ***********
+2024-09-12 16:58:11,801 p=24716 u=root n=ansible | skipping: [192.168.5.119]
+2024-09-12 16:58:11,823 p=24716 u=root n=ansible | skipping: [192.168.5.133]
+2024-09-12 16:58:11,846 p=24716 u=root n=ansible | TASK [slurm : Start Slurm Daemon in worker node] *******************************
+2024-09-12 16:58:23,002 p=24716 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:58:23,061 p=24716 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:58:23,091 p=24716 u=root n=ansible | TASK [Ensure slurmctld is not running in worker node] **************************
+2024-09-12 16:58:23,773 p=24716 u=root n=ansible | ok: [192.168.5.133]
+2024-09-12 16:58:23,795 p=24716 u=root n=ansible | ok: [192.168.5.119]
+2024-09-12 16:58:23,825 p=24716 u=root n=ansible | TASK [slurm : Reconfigure SLURM] ***********************************************
+2024-09-12 16:58:24,409 p=24716 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:58:24,572 p=24716 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:58:24,606 p=24716 u=root n=ansible | TASK [allow the slurm user to acces the slurm logs] ****************************
+2024-09-12 16:58:25,195 p=24716 u=root n=ansible | changed: [192.168.5.133]
+2024-09-12 16:58:25,213 p=24716 u=root n=ansible | changed: [192.168.5.119]
+2024-09-12 16:58:25,218 p=24716 u=root n=ansible | PLAY RECAP *********************************************************************
+2024-09-12 16:58:25,219 p=24716 u=root n=ansible | 192.168.5.119              : ok=32   changed=8    unreachable=0    failed=0    skipped=11   rescued=0    ignored=0   
+2024-09-12 16:58:25,220 p=24716 u=root n=ansible | 192.168.5.133              : ok=32   changed=8    unreachable=0    failed=0    skipped=11   rescued=0    ignored=0   
+2024-09-12 16:58:25,220 p=24716 u=root n=ansible | 192.168.5.67               : ok=31   changed=7    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0   

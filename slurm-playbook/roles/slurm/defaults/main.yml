@@ -1,0 +1,31 @@
+---
+# SLURM version to install (in case of RH systems)
+slurm_version: 21.08.8-2
+# Flag to download remote RPMs
+download_remote_rpms: true
+rpm_base_url: http://gws-access.jasmin.ac.uk/public/cedaproc/rpms
+rpm_dir: /usr/local/src/slurm-rpms
+# Type of node to install: front or wn
+slurm_type_of_node: front
+# Name of the SLURM server
+slurm_server_name: c1
+slurm_server_name_for_worker_configs: c1
+# IP address of the SLURM server
+slurm_server_ip: 127.0.0.1
+# List of the name of the WNs
+slurm_wn_nodenames: []
+# Number of CPUs of the WNs
+slurm_wn_cpus: 8
+# Default user for ssh and slurm management
+slurm_user: slurm
+slurm_user_id: 1003
+# Templates files
+templates: ""
+# Number of Maximun nodes
+max_number_of_nodes: 3
+# Max job run time
+max_run_time: INFINITE
+# Slurm log file locations
+slurmctld_log: /var/log/slurm/slurmctld.log
+slurmd_log: /var/log/slurm/slurmd.log
+

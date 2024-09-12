@@ -1,0 +1,54 @@
+---
+# tasks file for /etc/ansible/roles/slurm-playbook/slurm
+  - include: clean.yml
+    when: on_clean
+
+  # Add a fast check to speed reconfiguration
+  - set_fact: SRUN_PATH=/usr/bin/srun
+
+  - stat: path={{ SRUN_PATH }}
+    register: slurm_installed
+
+  - name: Install epel repo
+    yum: name=epel-release,yum-priorities
+
+  - name: Define a list of RPMs to download and install when using remotely
+    set_fact:
+      rpm_files: >
+        ["slurm",
+         "slurm-perlapi",
+         "slurm-contribs",
+         "slurm-devel",
+         "slurm-slurmctld",
+         "slurm-slurmd"]
+    when: (not slurm_installed.stat.exists)
+
+  - name: Install RPMs from downloaded files
+    yum:
+      name: "{{ item }}"
+    with_items:
+      - "{{ rpm_files }}"
+    when: (not slurm_installed.stat.exists)
+
+  - name: Set SLURM conf file path as fact RH
+    set_fact:
+      SLURM_CONF: "/etc/slurm/slurm.conf"
+      SLURM_SERVICE: "slurm"
+      SLURM_DAEMON: "slurm"
+
+  - name: create slurm user and group
+    user: name="{{slurm_user}}" shell=/bin/bash system=yes uid="{{ slurm_user_id }}"
+
+  - name: create folders used by SLURM and set slurm owner
+    file: path={{item}} state=directory owner=slurm group=slurm
+    with_items:
+      - /var/spool/slurm
+      - /var/log/slurm
+      - /var/slurm/checkpoint
+      - /etc/slurm
+
+  - name: Include "{{slurm_type_of_node}}" SLURM recipe
+    include: "{{slurm_type_of_node}}.yml"
+
+
+

@@ -1,0 +1,27 @@
+---
+  - name: Copy 'is_cluster_ready' file
+    copy: dest=/bin/is_cluster_ready src=is_cluster_ready mode=0755 force=no
+
+  - name: Include slurm config recipe
+    include: "config_file.yml"
+
+  - name: Start SLURM service in front node
+    service:
+      name: slurmctld
+      enabled: yes
+      state: restarted
+
+  - name: Ensure slurmd is not running in front node
+    service:
+      name: slurmd
+      enabled: no
+      state: stopped
+
+  - name: Reconfigure SLURM
+    become: true
+    become_user: slurm
+    command: scontrol reconfigure
+
+  - name: allow the slurm user to access the slurm logs
+    file: path={{ slurmctld_log }} mode=0644
+

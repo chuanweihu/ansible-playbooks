@@ -1,0 +1,74 @@
+- hosts: all
+  tasks:
+    - name: install nfs and rpcbind
+      yum: 
+        name: "{{ packages }}"
+        state: installed
+      vars:
+        packages:
+        - yp-tools
+        - rpcbind
+        - ypserv
+        - ypbind
+
+    - name: set hosts
+      shell: |
+        cat << _ServerHost_ >> /etc/hosts
+        192.168.5.67  c1
+        192.168.5.133 c2
+        192.168.5.119 c3
+        _ServerHost_
+
+    - name: set nisdomain
+      shell: |
+        nisdomainname cluster
+        echo 'NISDOMAIN=cluster' >> /etc/sysconfig/network
+
+    - name: set nis access right
+      shell: |
+        echo '* : *: *: none' >> /etc/ypserv.conf
+
+    - name: sync ypservices
+      lineinfile:
+        path: /var/yp/Makefile
+        regex: '^NOPUSH=false'
+        line: 'NOPUSH=true'
+
+    - name: add to nisdomain
+      lineinfile:
+        dest: /etc/yp.conf
+        insertafter: '^domain'
+        line: "{{item}}"
+      with_items:
+        - "domain cluster server c1"
+        - "domain cluster server c2"
+
+    - name: revise authconfig
+      lineinfile:
+        dest: /etc/sysconfig/authconfig
+        regex: '^USENIS=no'
+        line: 'USENIS=yes'
+
+    - name: setting for nsswitch
+      lineinfile:
+        dest: /etc/nsswitch.conf
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+        - { regexp: "^passwd.*files sss", line: "passwd:     files nis sss" }
+        - { regexp: "^shadow.*files sss", line: "shadow:     files nis sss" }
+        - { regexp: "^group.*files sss", line: "group:     files nis sss" }
+        - { regexp: "^hosts.*files dns", line: "hosts:      files nis dns myhostname" }
+
+    - name: start and enable yppasswdd.service
+      systemd: 
+        name: yppasswdd
+        state: started
+        enabled: yes
+    - name: start and enable rpcbind.service
+      systemd: 
+        name: rpcbind
+        state: started
+        enabled: yes
+    - name: start and enable ypserv.service
+      systemd:
